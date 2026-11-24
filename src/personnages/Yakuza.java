@@ -5,10 +5,15 @@ import personnages.Commercant;
 
 public class Yakuza extends Humain {
 	private String clan;
-	int reputation = 0;
+	private int reputation = 4;
 
-	public Yakuza(String nom, String boisson, int argent) {
+	public Yakuza(String nom, String boisson, int argent, String clan) {
 		super(nom, boisson, argent);
+		this.clan = clan;
+	}
+
+	public int getReputation() {
+		return reputation;
 	}
 
 	public void extorquer(Commercant victime) {
@@ -18,6 +23,19 @@ public class Yakuza extends Humain {
 		argent += argentVictime;
 		parler("J'ai piqué les " + argentVictime + " sous de " + victime.getNom() + ", ce qui me fait " + argent
 				+ " sous dans ma poche. Hi ! Hi !");
+	}
+
+	public void perdre() {
+		int argentBefore = argent;
+		argent = 0;
+		reputation -= 1;
+		parler("J'ai perdu mon duel et mes " + argentBefore + " sous, snif... J'ai déshonoré le clan de " + clan);
+	}
+
+	public void gagner(int gain) {
+		argent += gain;
+		parler("Ce ronin pensait  vraiment battre " + nom + " du clan de " + clan + " ?\nJe l'ai dépouillé de ses "
+				+ gain + " sous");
 	}
 
 }
